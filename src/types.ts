@@ -2,6 +2,27 @@ export type IncentiveMode = 'immediate' | 'delayed';
 export type IncentiveType = 'quantity' | 'amount';
 export type FeePayer = 'chain' | 'factory';
 
+export interface SingleProductPolicyDetails {
+  isTiered: boolean;
+  clerkReward: string;
+  managerReward: string;
+  regionalManagerReward: string;
+  chainReward: string;
+  thresholdType: 'amount' | 'percentage';
+  thresholdMin: string;
+  thresholdMax: string;
+}
+
+export interface IncentivePolicy {
+  id: number;
+  typeId: string;
+  typeName: string;
+  name?: string;
+  condition?: string;
+  reward?: string;
+  details?: SingleProductPolicyDetails;
+}
+
 export interface ActivityConfig {
   basicInfo: {
     serviceFeePayer: FeePayer;
@@ -17,8 +38,7 @@ export interface ActivityConfig {
     summary: string;
   };
   incentivePolicy: {
-    // 简化版，实际业务会更复杂
-    policies: any[];
+    policies: IncentivePolicy[];
   };
   products: any[];
   stores: any[];
